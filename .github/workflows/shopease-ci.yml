@@ -1,0 +1,25 @@
+name: ShopEase CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: List project files
+        run: ls -la
+
+      - name: Check required files
+        run: |
+          test -f README.md || { echo "README.md is missing"; exit 1; }
+          test -f stock.csv || { echo "stock.csv is missing"; exit 1; }
+
+      - name: Build message
+        run: echo "ShopEase build passed"
